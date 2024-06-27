@@ -4,7 +4,8 @@
 
 These scripts will allow you to easily gather statistics and configuration from your Growatt-5000ES or Growatt-3000ES inverter(s) using a raspberry-pi and a usb cable.  There is no need for RS485/RS232 dongles, just use the pi and the included USB cable from the inverter.
 
-These scripts were tested using a raspberry-pi 2b running raspberrypi 5.10.92-v7+ #1514
+These scripts were tested using a raspberry-pi zero w running raspberrypi bullseye, although its confirmed working on new RPIs as well.
+NOTE: you may have trouble getting readings if using USB adapters of any sort. The Growatt-supplied USB directly into a USB-A port is the safe route here.
 
 ![picture of dashboard](https://github.com/sdsolomo/growatt-x000ES/blob/main/README.png)
 
@@ -52,6 +53,12 @@ sudo apt-get install -y grafana
 sudo /bin/systemctl enable grafana-server
 sudo /bin/systemctl start grafana-server
 ```
+OR for rpi zero specifically
+```
+sudo apt-get install -y adduser libfontconfig1 musl
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise-rpi_9.3.6_armhf.deb
+sudo dpkg -i grafana-enterprise-rpi_9.3.6_armhf.deb
+```
 
 #Configure Grafana
 Point your browser to http://<raspberrypiIPaddress>:3000  like http://192.168.1.1:3000
@@ -72,6 +79,12 @@ Almost done... Lets head back over to the ssh session to the pi
 sudo pip install pymodbus
 sudo pip install influxdb
 ```
+OR avoid venv
+```
+sudo apt install python3-pymodbus
+sudo apt install python3-influxdb
+```
+
 # Test it..
 
 Within the ssh session type
